@@ -1,10 +1,11 @@
 async function testApi() {
+const baseUrl = 'https://personal-details-api.ksamarjeet929.workers.dev';
   console.log('Testing Health Check...');
-  const health = await fetch('http://localhost:8787/api/health').then(r => r.json());
+  const health = await fetch(`${baseUrl}/api/health`).then(r => r.json());
   console.log('Health:', health);
 
   console.log('\nTesting Invalid Submission...');
-  const invalidRes = await fetch('http://localhost:8787/api/forms', {
+  const invalidRes = await fetch(`${baseUrl}/api/forms`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ full_name: 'John' }) // missing fields
@@ -46,7 +47,7 @@ async function testApi() {
     terms_accepted: true
   };
 
-  const validRes = await fetch('http://localhost:8787/api/forms', {
+  const validRes = await fetch(`${baseUrl}/api/forms`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(validData)
@@ -54,7 +55,7 @@ async function testApi() {
   console.log('Valid Submit Status:', validRes.status, await validRes.json());
 
   console.log('\nTesting Fetch Records...');
-  const recordsRes = await fetch('http://localhost:8787/api/forms').then(r => r.json());
+  const recordsRes = await fetch(`${baseUrl}/api/forms`).then(r => r.json());
   console.log('Records Found:', recordsRes.records.length);
   if (recordsRes.records.length > 0) {
     console.log('First Record Name:', recordsRes.records[0].full_name);
