@@ -6,6 +6,7 @@ const app = new Hono();
 app.use('*', cors({
   origin: '*',
   allowMethods: ['GET', 'POST', 'OPTIONS'],
+  allowHeaders: ['Content-Type', 'Authorization'],
 }));
 
 // Health check endpoint
